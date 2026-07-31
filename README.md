@@ -48,3 +48,10 @@ SmartShelfX is a full-stack Inventory Management System developed during the Inf
 - ## 🔑 Authentication
 
 The application uses JWT authentication to secure APIs and provide role-based access for authorized users.
+## 📦 Inventory Modules
+
+- Products
+- Inventory
+- Vendors
+- Categories
+- Stock Management
