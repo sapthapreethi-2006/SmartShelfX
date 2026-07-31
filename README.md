@@ -110,3 +110,6 @@ The application stores product, inventory, vendor, and stock information using M
 ## 🤝 Contributing
 
 Contributions are welcome. Please fork the repository, create a feature branch, commit your changes, and submit a pull request.
+## 📄 License
+
+This project is licensed under the MIT License.
