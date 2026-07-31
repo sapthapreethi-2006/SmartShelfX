@@ -37,3 +37,11 @@ SmartShelfX is a full-stack Inventory Management System developed during the Inf
 ### Database
 
 - MySQL
+- ## 🔧 Development Tools
+
+- Git
+- GitHub
+- Maven
+- VS Code
+- IntelliJ IDEA
+- Postman
