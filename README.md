@@ -75,3 +75,12 @@ SmartShelfX
 3. Update application.properties.
 4. Run the Spring Boot backend.
 5. Start the React frontend.
+## 📌 REST APIs
+
+The backend provides REST APIs for:
+
+- Authentication
+- Products
+- Inventory
+- Vendors
+- Stock Management
