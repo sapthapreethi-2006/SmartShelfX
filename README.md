@@ -58,3 +58,13 @@ The application uses JWT authentication to secure APIs and provide role-based ac
 - ## 🏗 System Architecture
 
 The application follows a three-tier architecture with React.js as the frontend, Spring Boot as the backend, and MySQL as the database. REST APIs are used for communication between the frontend and backend.
+## 📂 Project Structure
+
+```text
+SmartShelfX
+│
+├── backend
+├── frontend
+├── database
+└── README.md
+```
