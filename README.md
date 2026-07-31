@@ -94,3 +94,9 @@ The application stores product, inventory, vendor, and stock information using M
 - Product Management
 - Inventory Dashboard
 - Vendor Management
+- ## 🔒 Security
+
+- JWT Authentication
+- Role-Based Authorization
+- Secure REST APIs
+- Input Validation
