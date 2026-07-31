@@ -68,3 +68,10 @@ SmartShelfX
 ├── database
 └── README.md
 ```
+## ⚙ Installation
+
+1. Clone the repository.
+2. Configure MySQL.
+3. Update application.properties.
+4. Run the Spring Boot backend.
+5. Start the React frontend.
