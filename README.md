@@ -87,3 +87,10 @@ The backend provides REST APIs for:
 ## 🗄 Database
 
 The application stores product, inventory, vendor, and stock information using MySQL to ensure efficient inventory management.
+## 📸 Screenshots
+
+- Login Page
+- Dashboard
+- Product Management
+- Inventory Dashboard
+- Vendor Management
