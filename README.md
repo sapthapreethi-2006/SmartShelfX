@@ -1,0 +1,1 @@
+# 📦 SmartShelfX - Inventory Management System
