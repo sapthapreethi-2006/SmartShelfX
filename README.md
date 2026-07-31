@@ -20,3 +20,20 @@ SmartShelfX is a full-stack Inventory Management System developed during the Inf
 - Search Products
 - CRUD Operations
 - Role-Based Access
+- ## 🛠 Technology Stack
+
+### Frontend
+
+- React.js
+- HTML5
+- CSS3
+- JavaScript
+
+### Backend
+
+- Java
+- Spring Boot
+
+### Database
+
+- MySQL
