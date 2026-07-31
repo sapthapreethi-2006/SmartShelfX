@@ -9,3 +9,14 @@ SmartShelfX is a full-stack Inventory Management System developed during the Inf
 - Track stock efficiently
 - Improve inventory accuracy
 - Reduce manual data entry
+- ## ✨ Features
+
+- Product Management
+- Inventory Tracking
+- SKU Management
+- Vendor Management
+- Stock Updates
+- Dashboard
+- Search Products
+- CRUD Operations
+- Role-Based Access
