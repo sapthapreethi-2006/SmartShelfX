@@ -45,3 +45,6 @@ SmartShelfX is a full-stack Inventory Management System developed during the Inf
 - VS Code
 - IntelliJ IDEA
 - Postman
+- ## 🔑 Authentication
+
+The application uses JWT authentication to secure APIs and provide role-based access for authorized users.
