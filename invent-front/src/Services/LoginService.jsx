@@ -2,134 +2,123 @@ import axios from 'axios';
 
 const BASE_URL = 'https://smartshelfx-backend-vh6n.onrender.com/invent';
 
-export const getNextProductCode = async () => {
-  const response = await axios.get(`${BASE_URL}/product/next-code`);
-  return response.data;
-};
+const LOGIN_URL = `${BASE_URL}/login`;
+const REGISTER_URL = `${BASE_URL}/register`;
 
-// Fetch all products
-export const fetchProducts = async () => {
+// Login user
+export const loginUser = async (username, password) => {
   try {
-    const response = await axios.get(`${BASE_URL}/product`);
-    console.log('Fetched products:', response.data);
-    return response.data;
+    console.log('Attempting login to:', LOGIN_URL);
+
+    const response = await axios.post(LOGIN_URL, {
+      username,
+      password
+    });
+
+    console.log('Login response:', response);
+    return response;
   } catch (error) {
-    console.error('Error fetching products:', error);
-    return [];
+    console.error('Login error:', error);
+    throw error;
   }
 };
 
-// Save new product
-export const saveNewProduct = (product) => {
-  return axios.post(`${BASE_URL}/product/add`, product);
+// Register new user
+export const registerUser = async (userData) => {
+  try {
+    console.log('Attempting registration to:', REGISTER_URL);
+
+    const response = await axios.post(REGISTER_URL, userData);
+
+    console.log('Registration response:', response);
+    return response;
+  } catch (error) {
+    console.error('Registration error:', error);
+    throw error;
+  }
 };
 
-export const getSkuDropdown = async () => {
-  const response = await axios.get(`${BASE_URL}/sku/dropdown`);
-  return response.data;
+// Validate user
+export const validateUser = async (userId, password) => {
+  return axios.get(`${LOGIN_URL}/${userId}/${password}`);
 };
 
-export const getVendorDropdown = async () => {
-  const response = await axios.get(`${BASE_URL}/vendors/dropdown`);
-  return response.data;
-};
-
-export const getProductAnalysis = async () => {
-  const response = await axios.get(`${BASE_URL}/product/analysis`);
-  return response;
-};
-
-// Delete by product code
-export const deleteProduct = async (productId) => {
+// Get user details
+export const getUserDetails = async (username) => {
   const candidates = [
-    `${BASE_URL}/product/${productId}`,
-    `${BASE_URL}/product/delete/${productId}`,
-    `${BASE_URL}/product/id/${productId}`,
+    `${BASE_URL}/user/${username}`,
+    `${BASE_URL}/users/${username}`,
+    `${BASE_URL}/user/details/${username}`
   ];
 
   let lastError;
 
   for (const url of candidates) {
     try {
-      console.log('Attempting delete via:', url);
-      const res = await axios.delete(url);
-      return res;
-    } catch (err) {
-      lastError = err;
-      console.warn('Delete failed at', url, err?.response?.status);
+      const response = await axios.get(url);
+      return response;
+    } catch (error) {
+      lastError = error;
     }
   }
 
-  throw lastError || new Error('Delete endpoint not reachable');
+  throw lastError || new Error('User endpoint not reachable');
 };
 
-export const updatePurchasePrice = (productCode, price) => {
-  return axios.put(
-    `${BASE_URL}/product/update-price/${productCode}?price=${price}`
-  );
-};
+// Get all registered users
+export const getRegisteredUsers = async () => {
+  const candidates = [
+    REGISTER_URL,
+    `${BASE_URL}/users`
+  ];
 
-export const getProductByCode = async (productCode) => {
-  const response = await axios.get(
-    `${BASE_URL}/product/code/${productCode}`
-  );
-  return response.data;
-};
+  let lastError;
 
-// Get product by ID
-export const getProductById = async (productId) => {
-  try {
-    const response = await axios.get(`${BASE_URL}/product/${productId}`);
-    console.log('Fetched product:', response.data);
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching product by ID:', error);
-    throw error;
-  }
-};
+  for (const url of candidates) {
+    try {
+      const response = await axios.get(url);
 
-// Update product
-export const updateProduct = async (product) => {
-  try {
-    const response = await axios.put(`${BASE_URL}/product`, product);
-    console.log('Product updated:', response.data);
-    return response.data;
-  } catch (error) {
-    console.error('Error updating product:', error);
-    throw error;
-  }
-};
+      if (Array.isArray(response.data)) {
+        return response.data;
+      }
 
-// Delete product
-export const deleteProductById = async (productId) => {
-  try {
-    const response = await axios.delete(`${BASE_URL}/product/${productId}`);
-    console.log('Product deleted:', response.data);
-    return response.data;
-  } catch (error) {
-    console.error('Error deleting product:', error);
-    throw error;
-  }
-};
+      if (response.data && Array.isArray(response.data.users)) {
+        return response.data.users;
+      }
 
-// Fetch vendors
-export const fetchVendors = async () => {
-  try {
-    const response = await axios.get(`${BASE_URL}/vendors`);
-    console.log('Fetched vendors:', response.data);
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching vendors:', error);
-    return [];
-  }
-};
-
-export const editProductStock = (product, qty, flag) => {
-  return axios.put(
-    `${BASE_URL}/product/edit-stock/${qty}/${flag}`,
-    product,
-    {
-      withCredentials: true
+      return [response.data];
+    } catch (error) {
+      lastError = error;
     }
-  );
+  }
+
+  throw lastError || new Error('Users list endpoint not reachable');
+};
+
+// Find user by username
+export const findUserByUsername = async (username) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/user/${username}`);
+    return response.data || null;
+  } catch (error) {
+    console.warn('Direct user lookup failed:', error?.response?.status);
+
+    try {
+      const users = await getRegisteredUsers();
+      const lower = (username || '').toLowerCase();
+
+      return (
+        users.find(
+          user =>
+            (user.username &&
+              user.username.toLowerCase() === lower) ||
+            (user.userId &&
+              String(user.userId).toLowerCase() === lower)
+        ) || null
+      );
+    } catch (listError) {
+      console.error('Error finding user:', listError);
+      return null;
+    }
+  }
 };
