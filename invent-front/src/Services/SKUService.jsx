@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:9191/invent';
+const BASE_URL = 'https://smartshelfx-backend-vh6n.onrender.com/invent';
 
 // Fetch all SKUs from backend
 export const getAllSKUs = async () => {
